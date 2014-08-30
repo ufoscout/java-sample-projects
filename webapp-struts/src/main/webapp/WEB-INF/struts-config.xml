@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC 
+   "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"  
+   "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<form-beans>
+		<form-bean name="submitForm" type="hansen.playground.SubmitForm" />
+	</form-beans>
+
+  <action-mappings>
+	<!-- path - name of the request, es: "submit.do". You don't enter the ".do"-part here.  -->
+	<!-- type - the path for the Action class file -->
+	<!-- name - is the logical name of the form bean (from the form-bean section) -->
+	<!-- input - validation errors should be shown on this page -->
+	<!-- scope - specifies how long the form bean should live. You may specify "session" instead. -->
+    <action path="/submit"
+            type="hansen.playground.SubmitAction"
+            name="submitForm"
+            input="/submit.jsp"
+            scope="request">
+    		<forward name="success" path="/submit.jsp"/>          
+    		<forward name="failure" path="/submit.jsp"/>          
+    </action>
+
+  </action-mappings>
+  
+  <!-- if null="false" no exception is thrown when a key is not found -->
+  <message-resources parameter="ApplicationResources" null="true"/>
+
+</struts-config>
+

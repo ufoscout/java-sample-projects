@@ -1,0 +1,39 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+	<!--
+		NON GENERATA DA AXIS: INIZIO 
+		questa parte l'ho aggiunta io, senza questa non funziona niente!!!
+	-->
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper" />
+
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper" />
+		</requestFlow>
+	</transport>
+	<!-- NON GENERATA DA AXIS: FINE -->
+
+
+  <!-- Services from ICalculatorService WSDL service -->
+
+  <service name="calculator" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="calculatorNamespace"/>
+      <parameter name="wsdlServiceElement" value="ICalculatorService"/>
+      <parameter name="schemaQualified" value="calculatorNamespace"/>
+      <parameter name="wsdlServicePort" value="calculator"/>
+      <parameter name="className" value="it.generated.wsAxis.generated.CalculatorSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ICalculator"/>
+      <parameter name="typeMappingVersion" value="1.1"/>
+      <operation name="add" qname="operNS:add" xmlns:operNS="calculatorNamespace" returnQName="retNS:addReturn" xmlns:retNS="calculatorNamespace" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="calculatorNamespace" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:in1" xmlns:pns="calculatorNamespace" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="subtract" qname="operNS:subtract" xmlns:operNS="calculatorNamespace" returnQName="retNS:subtractReturn" xmlns:retNS="calculatorNamespace" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="calculatorNamespace" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:in1" xmlns:pns="calculatorNamespace" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="subtract add"/>
+
+  </service>
+</deployment>

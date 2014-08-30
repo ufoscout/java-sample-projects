@@ -1,0 +1,17 @@
+<html>
+<head>
+Upload di un file nella cartella "target"
+
+<script type='text/javascript' src='../jquery/jquery-1.4.2.js'></script>
+<script type="text/javascript" src="../js/ajaxFileUpload.js"></script>
+</head>
+
+<body>
+
+<form name="myform" action="../rest/uploadfile" method="post" enctype="multipart/form-data">
+    name: <input type="text" name="name" size="15"/><br />
+    file: <input type="file" name="myfile"><br /><br />
+    <input type="submit" name="Submit" value="Submit your file"/>
+</form>
+
+</html>

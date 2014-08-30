@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ufo</groupId>
+		<artifactId>osgi-blueprint-embedded</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>osgi-blueprint-embedded-frontend</artifactId>
+	<packaging>war</packaging>
+
+	
+	<dependencies>
+	
+		<!-- BEGIN BUNDLES -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>osgi-blueprint-embedded-module-one</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>osgi-blueprint-embedded-module-two</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- END BUNDLES -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.aries.blueprint</groupId>
+			<artifactId>org.apache.aries.blueprint.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+           <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
+  		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	
+	
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.0.4.v20130625</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/osgi</contextPath>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-bundles</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+<!--                             <includeArtifactIds> -->
+<!--                                 org.apache.felix.http.bridge,producer,consumer,org.apache.felix.webconsole,org.apache.aries.blueprint.core -->
+<!--                             </includeArtifactIds> -->
+							
+                           <excludeArtifactIds>org.apache.felix.framework</excludeArtifactIds>
+<!--                             <stripVersion>true</stripVersion> -->
+                            <outputDirectory>
+                                ${project.build.directory}/bundles
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>
+                                ${project.build.directory}/bundles
+                            </directory>
+                            <targetPath>WEB-INF/bundles</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>.</directory>
+                            <targetPath>META-INF</targetPath>
+                            <includes>
+                                <include>LICENSE</include>
+                                <include>NOTICE</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+<!--              <plugin> -->
+<!--                 <groupId>org.apache.maven.plugins</groupId> -->
+<!--                 <artifactId>maven-source-plugin</artifactId> -->
+<!--                 <version>2.0.4</version> -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <id>attach-sources</id> -->
+<!--                         <goals> -->
+<!--                             <goal>jar</goal> -->
+<!--                         </goals> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--             </plugin>            -->
+        </plugins>
+	</build>
+</project>

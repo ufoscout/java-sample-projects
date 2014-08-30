@@ -1,0 +1,1 @@
+<% response.sendRedirect(response.encodeRedirectURL("page/main")); %>

@@ -1,0 +1,162 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>it.ufoscout</groupId>
+	<artifactId>wsAxisServer</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>wsAxisServer Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<targetJdk>1.5</targetJdk>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxrpc-api</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis-saaj</artifactId>
+			<version>1.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis-wsdl4j</artifactId>
+			<version>1.5.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.santuario</groupId>
+			<artifactId>xmlsec</artifactId>
+			<version>1.4.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>wsAxisServer</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>${targetJdk}</source>
+					<target>${targetJdk}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				
+				<!-- NB: questo plugin non e' assolutamente in grado di lavorare su piu'
+				wsdl sia con wsdl2java che viceversa.
+				Nel primo caso infatti genera il deploy wsdd per ogni wsdl che trova, ma ogni
+				volta sovrascrive il precedente!!
+				Invece java2wsdl puo' lavorare solo su una classe java per volta. -->
+			
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>axistools-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<!-- goal java2wsdl -->
+					<filename>calculator.wsdl</filename>
+					<outputDirectory>${basedir}/wsdl</outputDirectory>
+					<location>http://localhost:8089/axisServer/services/calculator</location>
+					<namespace>calculatorNamespace</namespace>
+					<wrapArrays>true</wrapArrays>
+					<style>wrapped</style>
+					<classOfPortType>it.ufoscout.wsAxis.server.ICalculator</classOfPortType>
+					
+					<!-- goal wsdl2java -->
+					<packageSpace>it.generated.wsAxis.generated</packageSpace>
+					<testCases>false</testCases>
+					<serverSide>true</serverSide>
+					<!-- <subPackageByFileName>true</subPackageByFileName> -->
+					<wrapArrays>true</wrapArrays>
+					<sourceDirectory>${basedir}/wsdl</sourceDirectory>
+					<!-- <outputDirectory>${basedir}/src/main/java</outputDirectory> -->
+					
+				</configuration>
+				<!-- launch with mvn axistool:wsdl2java -->
+				<executions>
+					<execution>
+						<!--
+							dichiaro una phase non esistente per non farlo avviare
+							automaticamente
+						-->
+						<phase>java2wsdl</phase>
+						<goals>
+							<goal>java2wsdl</goal>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.0</version>
+				<configuration>
+					<contextPath>/axisServer</contextPath>
+					<tmpDir>target</tmpDir>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8089</port>
+							<maxIdleTime>720000</maxIdleTime>
+						</connector>
+					</connectors>
+					<jettyConfig>jetty/jetty.xml</jettyConfig>
+					<webDefaultXml>jetty/webdefault.xml</webDefaultXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

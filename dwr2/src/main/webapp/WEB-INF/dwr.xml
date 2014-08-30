@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://getahead.org/dwr/dwr20.dtd">
+
+<dwr>
+  <allow>
+
+    <create creator="new" javascript="Prodotti">
+      <param name="class" value="dwrobject.Prodotti" />
+    </create>
+	
+	<create creator="new" javascript="GestisciUtenti">
+      <param name="class" value="dwrobject.GestisciUtenti" />
+    </create>
+	
+    <convert converter="bean" match="dwrobject.ProdottoVO"/>
+		
+		
+	<convert converter="bean" match="dwrobject.Utente"/>
+  </allow>
+</dwr> 

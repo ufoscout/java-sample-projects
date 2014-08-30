@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<click-app> 
+
+    <pages package="com.mycompany.click">
+    </pages>
+
+  <mode value="debug"/>
+  
+</click-app>  

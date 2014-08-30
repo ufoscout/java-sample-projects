@@ -1,0 +1,81 @@
+<assembly>
+
+	<!-- This assembly produces a distributable zip ready to install, configure, 
+		and run -->
+
+	<id>web-app-dist</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<!-- <outputDirectory>applicationdist</outputDirectory> -->
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<fileSets>
+
+		<!-- the project configuration files -->
+		<fileSet>
+			<directory>eures-ws-pdt-resources</directory>
+			<outputDirectory>eures-ws-pdt-resources</outputDirectory>
+			<filtered>true</filtered>
+			<excludes>
+				<exclude>**/.svn</exclude>
+			</excludes>
+			<includes>
+				<include>**/*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>eures-ws-pdt-resources</directory>
+			<outputDirectory>eures-ws-pdt-resources</outputDirectory>
+			<filtered>false</filtered>
+			<excludes>
+				<exclude>**/.svn</exclude>
+				<exclude>**/*.properties</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>sql</directory>
+			<outputDirectory>sql</outputDirectory>
+			<filtered>false</filtered>
+			<excludes>
+				<exclude>**/.svn</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- BEGIN - Include source code -->
+		<fileSet>
+			<directory>.</directory>
+			<outputDirectory>${project.artifactId}-${project.version}-src
+			</outputDirectory>
+			<excludes>
+				<exclude>**/.gwt/**</exclude>
+				<exclude>**/.svn/**</exclude>
+				<exclude>**/.checkstyle/**</exclude>
+				<exclude>**/.classpath/**</exclude>
+				<exclude>**/.project/**</exclude>
+				<exclude>**/.settings/**</exclude>
+				<exclude>**/.wtpmodules/**</exclude>
+				<exclude>pom.xml.releaseBackup</exclude>
+				<exclude>release.properties</exclude>
+				<exclude>./target/**</exclude>
+			</excludes>
+		</fileSet>
+		<!-- END - Include source code -->
+
+		<!-- <fileSet>
+			<directory>target</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>${webApp.filename}.${project.packaging}</include>
+			</includes>
+		</fileSet> -->
+	</fileSets>
+	<files>
+		<file>
+			<source>target/${webApp.filename}.${project.packaging}
+			</source>
+			<outputDirectory></outputDirectory>
+			<!-- <destName>${webApp.filename}.${project.packaging}</destName> -->
+		</file>
+	</files>
+</assembly>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<import resource="classpath:/ufo/spring/integration/jms/jms-client-config.xml" />
+	<context:component-scan base-package="ufo.spring.integration.server"/>
+	<int:annotation-config/>	
+	
+	<int-jms:inbound-gateway request-destination="retrieveEmployeeQueue" request-channel="retrieveEmployee"/>
+	<int:channel id="retrieveEmployee"/>
+	
+	<int-jms:inbound-gateway request-destination="existEmployeeQueue" request-channel="existEmployee"/>
+	<int:channel id="existEmployee"/>
+	
+</beans>

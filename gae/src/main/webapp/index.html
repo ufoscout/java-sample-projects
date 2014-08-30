@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="ng-app:songLibrary" id="ng-app"
+	ng-app="songLibrary" xmlns:ng="http://angularjs.org">
+<head>
+	<!--[if lt IE 9]>
+	      <script src="assets/lib/html5shiv.min.js"></script>
+	    <![endif]-->
+	<!--[if lte IE 8]>
+	      <script>
+	        document.createElement('ng-include');
+	        document.createElement('ng-pluralize');
+	        document.createElement('ng-view');
+	        document.createElement('ng:include');
+	        document.createElement('ng:pluralize');
+	        document.createElement('ng:view');
+	      </script>
+	    <![endif]-->
+	<!--[if lt IE 8]>
+	      <script src="assets/lib/json3.min.js"></script>
+	    <![endif]-->
+	<meta charset="utf-8">
+	<title>Song Library</title>
+	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<script src="assets/lib/angular/angular.js"></script>
+	<script src="assets/lib/angular/angular-resource.js"></script>
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/controllers.js"></script>
+	<script src="assets/js/filters.js"></script>
+	<script src="assets/js/services.js"></script>
+</head>
+<body>
+
+	<div ng-controller="SongListCtrl" class="span10">
+		<label>Song list:</label>
+
+		<ul class="phones">
+			<li
+				ng-repeat="song in songs | orderBy:song.artist" class="thumbnail">
+				<label>Artist:</label> <p>{{song.artist}}</p>
+				<label>Title:</label> <p>{{song.title}}</p>
+			</li>
+		</ul>
+		
+		<label>New song:</label>
+		<div>
+			<label>Artist:</label><input ng-model="newSong.artist">
+			<ul>
+				<li ng-repeat="violation in violations.artist">
+					<label>error: {{violation}} </label> 
+				</li>
+			</ul>
+			
+			<label>Title:</label><input ng-model="newSong.title">
+			<ul>
+				<li ng-repeat="violation in violations.title">
+					<label>error: {{violation}} </label> 
+				</li>
+			</ul>
+			
+			<label>Lyric:</label><input ng-model="lyric">
+			<button ng-click="addSong()">Add</button>
+		</div>
+
+	</div>
+
+</body>
+</html>

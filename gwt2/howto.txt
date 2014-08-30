@@ -1,0 +1,24 @@
+
+----------------------------------------------
+CREATE THE PROJECT
+----------------------------------------------
+
+I create this project using this command line:
+
+mvn archetype:generate -DarchetypeRepository=repo1.maven.org -DarchetypeGroupId=org.codehaus.mojo -DarchetypeArtifactId=gwt-maven-plugin -DarchetypeVersion=2.1.0-1
+
+see http://mojo.codehaus.org/gwt-maven-plugin/user-guide/archetype.html for more information.
+
+but I found a lot of problem using it, I modified something to make it works.
+
+
+
+
+
+
+----------------------------------------------
+MAVEN GOAL
+----------------------------------------------
+mvn compile  (as usual)
+
+mvn gwt:run  (run the app in embedded jetty server)

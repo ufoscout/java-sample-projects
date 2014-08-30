@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jms 
+		http://www.springframework.org/schema/jms/spring-jms.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:annotation-config />
+	
+	<context:component-scan base-package="jms.ufo" />
+	
+	<context:property-placeholder location="classpath:jms-context.properties" />
+
+	<!-- BEGIN - ACTIVE MQ CONFIGURATION -->
+<!-- 	<bean id="embeddedBroker" class="org.apache.activemq.broker.BrokerService" init-method="start" destroy-method="stop" > -->
+<!-- 		<property name="brokerName" value="embeddedBroker" /> -->
+<!-- 		<property name="persistent" value="true" /> -->
+<!-- 		<property name="useJmx" value="false"/> -->
+<!-- 		<property name="dataDirectory" value="./target/activemq-data"/> -->
+<!-- 		<property name="transportConnectorURIs" value="tcp://localhost:0"/> -->
+<!-- 	</bean> -->
+	
+	<bean id="embedded.connectionfactory" class="org.apache.activemq.ActiveMQConnectionFactory" lazy-init="true">
+ 		<property name="brokerURL" value="vm://localhost?broker.persistent=false" />
+ 	</bean>
+	
+	<bean id="jndi.connectionfactory" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="${jetty.jndi.connectionfactory}" />
+	</bean>
+	
+	<!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="${connectionfactory.implementation}" />
+		<property name="exceptionListener" ref="jmsExceptionListener" />
+		<property name="sessionCacheSize" value="10" />
+	</bean>
+	
+	<bean id="jmsExceptionListener" class="jms.ufo.JmsExceptionListener">
+	</bean>
+
+	<!-- JmsTemplate Definition -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="connectionFactory" />
+		<property name="defaultDestinationName" value="${queue.name}"/>
+	</bean>
+
+	<!-- listener container definition using the jms namespace, concurrency 
+		is the max number of concurrent listeners that can be started -->
+	<jms:listener-container concurrency="10">
+		<jms:listener id="QueueListener" destination="${queue.name}" ref="queueListener" />
+		<jms:listener id="CounterQueueListener" destination="counterQueue" ref="counterQueueListener" />
+	</jms:listener-container>
+	
+	<bean id="queueListener" class="jms.ufo.QueueListener" ></bean>
+	
+	
+	<!-- BEGIN - COUNTER QUEUE TEST -->
+	<bean id="counterJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="connectionFactory" />
+		<property name="defaultDestinationName" value="counterQueue"/>
+	</bean>
+	<bean id="counterQueueListener" class="jms.ufo.counter.CounterMessageListener" ></bean>
+	<!-- BEGIN - COUNTER QUEUE TEST -->
+</beans>

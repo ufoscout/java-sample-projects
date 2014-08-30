@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- POM file generated with GWT webAppCreator -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>restgwt</groupId>
+	<artifactId>restgwt</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>GWT Maven Archetype</name>
+
+	<properties>
+		<gwtp.version>0.7</gwtp.version>
+		<gwtVersion>2.5.0</gwtVersion>
+		<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
+		<org.codehaus.jackson.version>1.9.9</org.codehaus.jackson.version>
+		<restygwt.version>1.3</restygwt.version>
+		<!-- GWT needs at least java 1.5 -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<webApp.filename>${artifactId}</webApp.filename>
+		<webappDirectory>${project.build.directory}/${webApp.filename}</webappDirectory>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- MVP component -->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-mvp-client</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>1.5.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Dispatch components -->
+<!-- Default server/client dispatch components provided by gwtplatform. Here is substituted by restyGWT  -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.gwtplatform</groupId> -->
+<!-- 			<artifactId>gwtp-dispatch-client</artifactId> -->
+<!-- 			<version>${gwtp.version}</version> -->
+<!-- 			<scope>provided</scope> Remove for GWTP 0.5.1 and earlier -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.gwtplatform</groupId> -->
+<!-- 			<artifactId>gwtp-dispatch-server-guice</artifactId> --> 
+<!-- 			<artifactId>gwtp-dispatch-server-spring</artifactId> -->
+<!-- 			<version>${gwtp.version}</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.springframework</groupId> -->
+<!-- 					<artifactId>spring-core</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.springframework</groupId> -->
+<!-- 					<artifactId>spring-context</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.springframework</groupId> -->
+<!-- 					<artifactId>spring-beans</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.springframework</groupId> -->
+<!-- 					<artifactId>spring-web</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
+
+		<!-- Crawler component -->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-crawler</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Annotation component -->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-processors</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Tester component -->
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-tester</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- restygwt component -->
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+			<version>${restygwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<classifier>sources</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${org.codehaus.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Generate compiled stuff in the folder used for developing mode -->
+		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+		<plugins>
+
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwtVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+							<goal>i18n</goal>
+							<!-- <goal>generateAsync</goal> -->
+						</goals>
+					</execution>
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+					<runTarget>RestGWTModule.html</runTarget>
+					<hostedWebapp>${webappDirectory}</hostedWebapp>
+					<i18nMessagesBundle>restgwt.client.Messages</i18nMessagesBundle>
+					<mode>htmlunit</mode>
+					<deploy>${project.build.directory}/gwt-deploy</deploy>
+					<extra>${project.build.directory}/gwt-extra</extra>
+					<workDir>${project.build.directory}/gwt-workDir</workDir>
+					<localWorkers>2</localWorkers>
+					<extraJvmArgs>-Xmx512m</extraJvmArgs>
+				</configuration>
+			</plugin>
+
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.source}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<!-- <version>2.6</version> -->
+				<configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+						<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<useManifestOnlyJar>false</useManifestOnlyJar>
+					<!-- <forkMode>always</forkMode> -->
+					<systemProperties>
+						<property>
+							<name>gwt.args</name>
+							<value>-out target/${webApp.filename}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.3.1.v20110307</version>
+				<configuration>
+					<webAppSourceDirectory>target/${webApp.filename}</webAppSourceDirectory>
+					<webAppConfig>
+						<contextPath>/${webApp.filename}</contextPath>
+						<!-- <jettyEnvXml>${basedir}/src/test/jetty7/jetty-env.xml</jettyEnvXml> -->
+						<tempDirectory>target/jetty-temp</tempDirectory>
+						<!-- <defaultsDescriptor>${basedir}/src/test/jetty7/webdefault.xml</defaultsDescriptor> -->
+					</webAppConfig>
+					<useTestClasspath>false</useTestClasspath>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8081</port>
+							<maxIdleTime>720000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+				<!--<dependencies> <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc6</artifactId> 
+					<version>${ojdbc.version}</version> </dependency> </dependencies> -->
+			</plugin>
+
+
+		</plugins>
+	</build>
+
+</project>

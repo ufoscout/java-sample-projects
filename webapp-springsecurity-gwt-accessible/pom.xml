@@ -1,0 +1,304 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.fcina</groupId>
+	<artifactId>webapp-springsecurtiy-gwt-accessible</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<h2database.version>1.3.161</h2database.version>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<gwt.version>2.4.0</gwt.version>
+		<gwt.plugin.version>2.4.0</gwt.plugin.version>
+		<gwt.run.target>GwtSpringSecurityProject.html</gwt.run.target>
+		<gwt.outputmodule>gwtspringsecurityproject</gwt.outputmodule>
+		<gwt.compile.user.agent />
+		<gwt.compile.draft>false</gwt.compile.draft>
+		<gwt.compile.optimizationLevel>9</gwt.compile.optimizationLevel>
+    		<webApp.filename>test</webApp.filename>
+	</properties>
+	
+	<dependencies>
+	
+		<!-- begin compile scope -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-web</artifactId>
+		    <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jpattern</groupId>
+			<artifactId>jpattern-orm</artifactId>
+			<version>1.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.161</version>
+		</dependency>
+		<!-- end compile scope -->
+		
+		<!-- begin test scope -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- end test scope -->
+		
+		<!-- begin provided scope -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- end provided scope -->
+		
+	</dependencies>
+	<build>
+		<finalName>${webApp.filename}</finalName>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/java</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.gwt.xml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<!-- <goal>test</goal> -->
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<runTarget>${gwt.run.target}</runTarget>
+					<draftCompile>${gwt.compile.draft}</draftCompile>
+					<optimizationLevel>${gwt.compile.optimizationLevel}</optimizationLevel>
+					<mode>htmlunit</mode>
+					<deploy>${project.build.directory}/gwt-deploy</deploy>
+					<extra>${project.build.directory}/gwt-extra</extra>
+					<workDir>${project.build.directory}/gwt-workDir</workDir>
+					<extraJvmArgs>-Xmx512M</extraJvmArgs>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-user</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-dev</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<!-- <execution> <id>copy-resources</id> <phase>validate</phase> <goals> 
+						<goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${project.basedir}/src/main/resources</outputDirectory> 
+						<resources> <resource> <directory>src/main/resources-to-filter</directory> 
+						<filtering>true</filtering> <includes> <include>**/*.gwt.xml</include> </includes> 
+						</resource> </resources> </configuration> </execution> -->
+					<execution>
+						<id>copy-compiled-javascript</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/javascript/${webApp.filename}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/target/${webApp.filename}/${gwt.outputmodule}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<!-- <version>2.6</version> -->
+				<configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+						<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<useManifestOnlyJar>false</useManifestOnlyJar>
+					<!-- <forkMode>always</forkMode> -->
+					<systemProperties>
+						<property>
+							<name>gwt.args</name>
+							<value>-out target/${webApp.filename}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<!-- <version>2.1.1</version> -->
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<configuration>
+							<webResources>
+								<resource>
+									<directory>src/main/webapp/WEB-INF</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>weblogic.xml</include>
+										<include>web.xml</include>
+									</includes>
+									<targetPath>WEB-INF</targetPath>
+								</resource>
+							</webResources>
+						</configuration>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- <configuration> <webappDirectory>target/${webApp.filename}</webappDirectory> 
+					</configuration> -->
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly-web-app-dist.xml</descriptor>
+					</descriptors>
+					<finalName>${project.artifactId}-${project.version}</finalName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- append to the packaging phase. -->
+						<goals>
+							<goal>single</goal> <!-- goals == mojos -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.3.1.v20110307</version>
+				<configuration>
+					<webAppSourceDirectory>target/${webApp.filename}</webAppSourceDirectory>
+					<webAppConfig>
+						<contextPath>/${webApp.filename}</contextPath>
+						<jettyEnvXml>${basedir}/src/test/jetty7/jetty-env.xml</jettyEnvXml>
+						<tempDirectory>target/jetty-temp</tempDirectory>
+						<defaultsDescriptor>${basedir}/src/test/jetty7/webdefault.xml</defaultsDescriptor>
+					</webAppConfig>
+					<useTestClasspath>false</useTestClasspath>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8081</port>
+							<maxIdleTime>720000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+				<!--<dependencies>
+					<dependency>
+						<groupId>com.oracle</groupId>
+						<artifactId>ojdbc6</artifactId>
+						<version>${ojdbc.version}</version>
+					</dependency>
+				</dependencies>-->
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

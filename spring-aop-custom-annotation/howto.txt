@@ -1,0 +1,11 @@
+To test the shared cached you can start three concurrent jetty instances using the predefined profiles. 
+To do that use:
+
+jetty on port 8080:
+mvn jetty (it uses the default profile: appOne)
+
+jetty on port 8081:
+mvn jetty:run -PappTwo
+
+jetty on port 8082:
+mvn jetty:run -PappThree 

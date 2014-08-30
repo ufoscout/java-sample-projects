@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure id="Server" class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<New id="jmsConnectionFactory" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg></Arg>
+		<Arg>jms/connectionFactory</Arg>
+		<Arg>
+			<New class="org.apache.activemq.ActiveMQConnectionFactory">
+				<Arg>vm://localhost?broker.persistent=false</Arg>
+			</New>
+		</Arg>
+	</New>
+	
+<!-- 	<New id="jmsQueue" class="org.eclipse.jetty.plus.jndi.Resource"> -->
+<!-- 		<Arg></Arg> -->
+<!-- 		<Arg>jms/myQueue</Arg> -->
+<!-- 		<Arg> -->
+<!-- 			<New class="org.apache.activemq.command.ActiveMQQueue"> -->
+<!-- 			</New> -->
+<!-- 		</Arg> -->
+<!-- 	</New> -->
+</Configure>

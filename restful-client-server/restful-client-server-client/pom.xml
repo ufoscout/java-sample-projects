@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>test</groupId>
+		<artifactId>restful-client-server</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>restful-client-server-client</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- BEGIN compile scope -->
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>restful-client-server-commons</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-xc</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-jaxrs</artifactId>
+			</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<!-- END compile scope -->
+
+		<!-- BEGIN provided scope -->
+
+		<!-- END provided scope -->
+
+		<!-- BEGIN test scope -->
+
+		<!-- END test scope -->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- It doesn't work... to investigate... -->
+				<!-- To generate the client code use: mvn wadl:generate -->
+				<groupId>org.jvnet.ws.wadl</groupId>
+				<artifactId>wadl-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<!-- this is to launch the plugin during the maven generate-sources phase -->
+				<!-- <executions> -->
+				<!-- <execution> -->
+				<!-- <goals> -->
+				<!-- <goal>generate</goal> -->
+				<!-- </goals> -->
+				<!-- </execution> -->
+				<!-- </executions> -->
+				<configuration>
+					<sourceDirectory>http://localhost:8080/rest/jersey</sourceDirectory>
+					<packageName>com.yahoo.search</packageName>
+					<!-- <autopackaging>true</autopackaging> -->
+					<!-- <customizations> -->
+					<!-- <customization>../share/binding.xjb</customization> -->
+					<!-- </customizations> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

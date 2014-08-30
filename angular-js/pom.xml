@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ufo.test</groupId>
+	<artifactId>angular-js</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>angular-js Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+<!-- 		<org.springframework.version>3.1.2.RELEASE</org.springframework.version> -->
+		<org.codehaus.jackson-version>1.9.9</org.codehaus.jackson-version>
+		<com.sun.jersey-version>1.12</com.sun.jersey-version>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<webApp.filename>${artifactId}</webApp.filename>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${com.sun.jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+			<version>${com.sun.jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${com.sun.jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>${org.codehaus.jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-lgpl</artifactId>
+			<version>${org.codehaus.jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>${org.codehaus.jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${org.codehaus.jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${webApp.filename}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.source}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.searls</groupId>
+				<artifactId>jasmine-maven-plugin</artifactId>
+				<version>1.3.1.1</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>js-unit-tests</id>
+						<configuration>
+							<jsSrcDir>src/main/webapp/js</jsSrcDir>
+							<jsTestSrcDir>src/test/webapp/unitTests</jsTestSrcDir>
+							<sourceIncludes>
+								<include>**/*.js</include>
+							</sourceIncludes>
+							<preloadSources>
+								<source>${basedir}/src/main/webapp/lib/jquery/jquery-1.9.1.js</source>
+								<source>${basedir}/src/main/webapp/lib/angular/angular.js</source>
+								<source>${basedir}/src/main/webapp/lib/angular/angular-resource.js</source>
+								<source>${basedir}/src/main/webapp/lib/angular/angular-mocks.js</source>
+							</preloadSources>
+						</configuration>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+<!-- 					<execution> -->
+<!-- 						<id>js-e2e-tests</id> -->
+<!-- 						<configuration> -->
+<!-- 							<jsSrcDir>src/main/webapp/js</jsSrcDir> -->
+<!-- 							<jsTestSrcDir>src/test/webapp/e2eTests</jsTestSrcDir> -->
+<!-- 							<sourceIncludes> -->
+<!-- 								<include>**/*.js</include> -->
+<!-- 							</sourceIncludes> -->
+<!-- 							<preloadSources> -->
+<!-- 								<source>${basedir}/src/main/webapp/lib/jquery/jquery-1.9.1.js</source> -->
+<!-- 								<source>${basedir}/src/main/webapp/lib/angular/angular-scenario.js</source> -->
+<!-- 								<source>${basedir}/src/main/webapp/lib/angular/angular-mocks.js</source> -->
+<!-- 							</preloadSources> -->
+<!-- 						</configuration> -->
+<!-- 						<phase>integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>test</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.4.v20120524</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/angular-js</contextPath>
+						<!-- <defaultsDescriptor>src/test/resources/jetty/webdefault.xml</defaultsDescriptor> -->
+						<baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+							<resourcesAsCSV>src/main/webapp,src/test/webapp</resourcesAsCSV>
+						</baseResource>
+					</webAppConfig>
+					<useTestClasspath>false</useTestClasspath>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8080</port>
+							<maxIdleTime>720000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>jetty-start</id> -->
+<!-- 						<phase>pre-integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>run</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<daemon>true</daemon> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 					<execution> -->
+<!-- 						<id>jetty-stop</id> -->
+<!-- 						<phase>post-integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>stop</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+			</plugin>
+		</plugins>
+	</build>
+</project>

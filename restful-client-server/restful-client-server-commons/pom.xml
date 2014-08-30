@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>test</groupId>
+		<artifactId>restful-client-server</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>restful-client-server-commons</artifactId>
+	<packaging>jar</packaging>
+	
+	<dependencies>
+		<!-- BEGIN - dgemploi-eures libraries jars and source code for assembly phase -->
+
+		<!-- END - dgemploi-eures libraries jars and source code for assembly phase -->
+		
+		<!-- BEGIN compile scope -->
+
+		<!-- END compile scope -->
+		
+		<!-- BEGIN provided scope -->
+
+		<!-- END provided scope -->
+		
+		<!-- BEGIN test scope -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- END test scope -->
+	</dependencies>
+
+</project>

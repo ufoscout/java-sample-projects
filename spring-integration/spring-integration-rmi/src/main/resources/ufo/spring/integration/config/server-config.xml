@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-rmi="http://www.springframework.org/schema/integration/rmi"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/integration/rmi http://www.springframework.org/schema/integration/rmi/spring-integration-rmi.xsd">
+	
+	<context:component-scan base-package="ufo.spring.integration"/>
+	
+	<int-rmi:inbound-gateway request-channel="requestEmployee"/>
+	
+	<int:channel id="requestEmployee"/>
+	
+	<int:service-activator method="retrieveEmployee" input-channel="requestEmployee" ref="defaultEmployeeService"/>
+	
+</beans>

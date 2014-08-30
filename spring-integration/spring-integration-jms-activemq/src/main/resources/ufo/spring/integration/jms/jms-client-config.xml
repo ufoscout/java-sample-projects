@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="tcp://localhost:31313" />
+			</bean>
+		</property>
+		<property name="sessionCacheSize" value="10" />
+		<property name="cacheProducers" value="false" />
+	</bean>
+
+<!-- 	<int-jms:channel id="channel.retrieveEmployee" queue-name="queue.retrieveEmployee" message-driven="false"/> -->
+
+	<bean id="existEmployeeQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.existEmployee" />
+	</bean>
+	
+	<bean id="retrieveEmployeeQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.retrieveEmployee" />
+	</bean>
+
+<!-- 	<int-jms:channel id="retrieveEmployeeQueue" queue-name="queue.retrieveEmployee" message-driven="false"/> -->
+
+<!-- 	<int-jms:channel id="channel.output" queue-name="queue.output" message-driven="false"/> -->
+
+	<int:poller id="poller" default="true" fixed-delay="1000" />
+
+</beans>

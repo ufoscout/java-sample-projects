@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Say hello to someone</title>
+</head>
+<body>
+<script type='text/javascript' src='../jquery/jquery-1.4.2.js'></script>
+
+<h2>Write the name:</h2>
+
+<form action="../rest/helloSomeone" method="GET" accept-charset="utf-8">
+	<p>Name: <input type="text" value="Mago" name="inputName" id="inputName"/></p>
+	<p><input type="submit" value="Continue" name="submitButton" id="submitButton"/></p>
+</form>
+<br/>
+<div id="helloResponse">
+</div>
+
+<script type='text/javascript'>
+	$(document).ready(function(){
+	 $('#submitButton').click(function() {
+	   $.ajax({
+	   		type: "GET",
+  			url: "../rest/helloSomeone",
+			data: 'inputName=' + $('#inputName').val(),
+  			cache: false,
+  			success: function(html){
+    			$('#helloResponse').append('<br/>' + html).slideDown();
+  			}
+		});
+	   
+	   return false;
+	 });
+	});
+</script>
+
+</body>
+</html>
