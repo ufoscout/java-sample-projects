@@ -12,3 +12,5 @@ mvn spring-boot:run
 
 To test the version with minified files use jetty-maven-plugin
 mvn clean package jetty:run-war
+
+and browse to localhost:8080/index-min.html
