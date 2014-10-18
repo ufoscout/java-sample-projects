@@ -6,12 +6,12 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.eclipse.jetty.proxy.ProxyServlet;
+import org.eclipse.jetty.proxy.AsyncProxyServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-public class UfoProxyServlet extends ProxyServlet {
+public class UfoProxyServlet extends AsyncProxyServlet {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;

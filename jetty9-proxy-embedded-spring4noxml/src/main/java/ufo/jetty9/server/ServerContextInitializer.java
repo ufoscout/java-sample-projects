@@ -25,7 +25,7 @@ public class ServerContextInitializer implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = context.addServlet("DispatcherServlet", new DispatcherServlet(rootContext));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.setAsyncSupported(true);
-		dispatcher.addMapping("/spring/*");
+		dispatcher.addMapping("/rest/*");
 
 		System.out.println("ContextInitializer started");
 

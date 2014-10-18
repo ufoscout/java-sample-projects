@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * @author ufo
  */
 @RunWith(BlockJUnit4ClassRunner.class)
-public class Jetty9BaseTest {
+public abstract class Jetty9BaseTest {
 
     private final static DecimalFormat TIME_FORMAT = new DecimalFormat("####,###.###", new DecimalFormatSymbols(Locale.US));
 
