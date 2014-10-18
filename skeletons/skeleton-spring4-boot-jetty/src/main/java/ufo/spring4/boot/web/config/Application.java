@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import ufo.spring4.boot.BasePackagePlaceholder;
+
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan(basePackageClasses = BasePackagePlaceholder.class)
 public class Application {
 
 	public static void main(String[] args) {
