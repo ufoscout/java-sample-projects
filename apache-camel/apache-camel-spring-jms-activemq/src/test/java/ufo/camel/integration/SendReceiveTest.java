@@ -1,4 +1,4 @@
-package ufo.camel.integration.client;
+package ufo.camel.integration;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +30,7 @@ import ufo.camel.service.ReceiveOnlyConsumerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CamelConfig.class })
-public class TestClientStart {
+public class SendReceiveTest {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 

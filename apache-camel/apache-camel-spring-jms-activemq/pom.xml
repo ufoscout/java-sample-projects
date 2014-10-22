@@ -21,8 +21,11 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 
-
 		<!-- ActiveMQ broker -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jackson</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-broker</artifactId>

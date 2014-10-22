@@ -1,4 +1,4 @@
-package ufo.camel.integration.client;
+package ufo.camel.integration;
 
 public interface Consumer<T> {
 
