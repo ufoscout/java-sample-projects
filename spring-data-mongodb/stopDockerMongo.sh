@@ -1,0 +1,1 @@
+docker stop spring-data-mongo-test;
